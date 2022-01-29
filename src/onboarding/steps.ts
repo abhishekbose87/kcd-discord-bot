@@ -88,10 +88,10 @@ const allSteps: ReadonlyArray<Step> = [
   firstStep,
   {
     name: 'email',
-    question: `What's your email address? (This will look you up on Kent's mailing list. If you're not already on it, you'll be added and will receive a confirmation email.)`,
+    question: `What's your email address? (This will look you up on Pesto's mailing list. If you're not already on it, you'll be added and will receive a confirmation email.)`,
     feedback: async answers => {
       if (answers.email && (await getConvertKitSubscriber(answers.email))) {
-        return `Oh, nice, ${answers.email} is already a part of Kent's mailing list (you rock 🤘), so you won't be getting a confirmation email after all.`
+        return `Oh, nice, ${answers.email} is already a part of Pesto's mailing list (you rock 🤘), so you won't be getting a confirmation email after all.`
       }
       return `Awesome, when we're done here, you'll receive a confirmation email to: ${answers.email}.`
     },
@@ -150,7 +150,7 @@ const allSteps: ReadonlyArray<Step> = [
     question: `
 Our community is commited to certain standards of behavior and we enforce that behavior to ensure it's a nice place to spend time.
 
-Please read about our code of conduct here: https://kentcdodds.com/conduct
+Please read about our code of conduct here: https://gist.github.com/abhishekbose87/a79a8f1c45e65c32a9182aaec073007c
 
 Do you agree to abide by and uphold the code of conduct? **The only correct answer is "yes"**
     `.trim(),
@@ -178,9 +178,9 @@ Do you agree to abide by and uphold the code of conduct? **The only correct answ
         response === answers.email
           ? `Please note, I'm not looking for *your* email address again. I'm looking for the email address that's listed in the code of conduct`
           : ''
-      if (!response.toLowerCase().includes('team+coc@kentcdodds.com')) {
+      if (!response.toLowerCase().includes('abhishek@pesto.tech')) {
         const mainMessage = `That's not right. **I'm testing you to make sure you actually opened the code of conduct**. Please **open the code of conduct** and copy/paste the email address listed under the heading "Have questions/need to report an issue?" We take our code of conduct seriously, so I want to make sure you've opened it. Thanks!`
-        const openCoc = `Now, please open <https://kentcdodds.com/conduct> and copy/paste the email address that's listed on that page.`
+        const openCoc = `Now, please open <https://gist.github.com/abhishekbose87/a79a8f1c45e65c32a9182aaec073007c> and copy/paste the email address that's listed on that page.`
         return [mainMessage, sameEmail, openCoc].filter(Boolean).join('\n\n')
       }
     },
@@ -251,9 +251,9 @@ If you'd like to change any, then edit your responses above.
     `.trim(),
     isQuestionMessage: messageContents =>
       messageContents.startsWith('Here are your answers'),
-    feedback: `Awesome, welcome to the KCD Community on Discord!`,
+    feedback: `Awesome, welcome to the Pesto Community on Discord!`,
     getAnswer: messageContents =>
-      messageContents.startsWith('Awesome, welcome to the KCD') ? true : null,
+      messageContents.startsWith('Awesome, welcome to the Pesto') ? true : null,
     action: async ({answers, member, channel, isEdit}) => {
       const {guild} = member
       const send = getSend(channel)
@@ -265,7 +265,7 @@ If you'd like to change any, then edit your responses above.
         )
         if (!unconfirmedMemberRole || !memberRole) {
           await send(
-            `Something is wrong. Please email team@kentcdodds.com and let them know I couldn't find the member or unconfirmed member roles.`,
+            `Something is wrong. Please email abhishek@pesto.tech and let them know I couldn't find the member or unconfirmed member roles.`,
           )
           return
         }
@@ -277,8 +277,8 @@ If you'd like to change any, then edit your responses above.
       const subscriber = answers.email
         ? await getConvertKitSubscriber(answers.email)
         : null
-      const discordTagId = '1747377'
-      const discordForm = '1547100'
+      const discordTagId = '2895628'
+      const discordForm = '2953610'
       let checkEmail = ''
       if (subscriber) {
         await got.post(
@@ -329,9 +329,9 @@ ${isEdit ? '' : `🎊 You now have access to the whole server. Welcome!`}
 
       if (!isEdit) {
         // this is a gif of Kent doing a flip with the sub-text "SWEEEET!"
-        await send(`https://media.giphy.com/media/MDxjbPCg6DGf8JclbR/giphy.gif`)
+        await send(`https://media.giphy.com/media/hZj44bR9FVI3K/giphy.gif`)
         // sending "👆 that's Kent!" afterword otherwise it appears above the gif somehow
-        await send(`👆 that's Kent!`)
+        // await send(`👆 that's Kent!`)
       }
     },
     validate({message}) {
@@ -351,51 +351,6 @@ ${isEdit ? '' : `🎊 You now have access to the whole server. Welcome!`}
           ],
         }),
       )
-    },
-  },
-  {
-    actionOnlyStep: true,
-    action: async ({channel}) => {
-      const send = getSend(channel)
-      const message = await send(
-        `One last thing here if you want, click the icon of the tech you are most interested in right now (or want to learn about). Kent will use this to give you more relevant content in the future.`,
-      )
-      const emojis = [
-        'react',
-        'remix',
-        'javascript',
-        'typescript',
-        'nodejs',
-        'jest',
-        'msw',
-        'cypress',
-        'reacttestinglibrary',
-        'domtestinglibrary',
-        'css',
-        'html',
-        'reactquery',
-      ]
-      const guild = message.guild
-      if (!guild) return
-
-      const reactionEmoji = emojis
-        .map(emojiName =>
-          guild.emojis.cache.find(({name}) => name.toLowerCase() === emojiName),
-        )
-        // it's possible the emoji title changed or was removed
-        // we should fix the list above in that case, but we don't
-        // want to crash just because of that... So we'll filter out those.
-        .filter(typedBoolean)
-      for (const emoji of reactionEmoji) {
-        // we want them in order
-        // eslint-disable-next-line no-await-in-loop
-        await message.react(emoji)
-      }
-
-      // just because adding the emoji takes a second and it looks funny
-      // to have the next message come so quickly after finishing adding
-      // all the reactions.
-      await sleep(2000)
     },
   },
   {
@@ -427,10 +382,7 @@ Enjoy the community!
       const response = `We're all done. This channel will get deleted automatically eventually, but if you want to delete it yourself, then say "delete".`
       if (message.content.toLowerCase().includes('thank')) {
         return `
-You're very welcome! Thanks for your gratitude! High five ✋
-
-https://media.giphy.com/media/g3zttGo4Vo2M8/giphy.gif
-
+You're very welcome! Thanks for your patience! High five ✋
 ${response}
         `.trim()
       }

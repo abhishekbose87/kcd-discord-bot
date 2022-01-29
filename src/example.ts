@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import path from 'path'
-import Discord from 'discord.js'
-import dotenv from 'dotenv'
+import * as path from 'path'
+import * as Discord from 'discord.js'
+import * as dotenv from 'dotenv'
 import {cleanupGuildOnInterval, getChannel} from './utils'
 import {onboarding, commands, clubApplication, admin} from './setup'
 
@@ -13,19 +13,24 @@ dotenv.config({
 const client = new Discord.Client()
 
 console.log('logging in')
+console.log(process.env.DISCORD_BOT_TOKEN)
 void client.login(process.env.DISCORD_BOT_TOKEN)
 
-const getKcdGuild = () => client.guilds.cache.find(({name}) => name === 'KCD')
+console.log('guilds cache')
+console.log(client.guilds.cache)
+
+const getKcdGuild = () => client.guilds.cache.find(({name}) => name === 'Pesto Clubhouse')
 const getKent = () =>
   getKcdGuild()?.members.cache.find(
     ({user: {username, discriminator}}) =>
-      username === 'kentcdodds' && discriminator === '0001',
+      username === 'avi87' && discriminator === '0001',
   )
 
 client.on('ready', async () => {
   console.log('ready to go')
   // commands.setup(client)
   const kcd = getKcdGuild()
+  console.log(kcd);
   if (!kcd) throw new Error('Could not find KCD guild')
 
   console.log(kcd.emojis.cache)
