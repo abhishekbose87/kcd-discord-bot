@@ -6,6 +6,7 @@ import {handleUpdatedMessage} from './handle-updated-message'
 import {cleanup} from './cleanup'
 
 function setup(client: TDiscord.Client) {
+  console.log('Inside setup of onboarding index.ts')
   client.on('message', handleNewMessage)
   client.on('messageUpdate', handleUpdatedMessage)
   client.on('guildMemberAdd', handleNewMember)
