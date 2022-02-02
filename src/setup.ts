@@ -10,10 +10,10 @@ import * as reactions from './reactions'
 function setup(client: Client) {
   onboarding.setup(client)
   commands.setup(client)
-  // admin.setup(client)
-  clubApplication.setup(client)
-  meetup.setup(client)
-  reactions.setup(client)
+  admin.setup(client)
+  // clubApplication.setup(client)
+  // meetup.setup(client)
+  // reactions.setup(client)
 }
 
 export {onboarding, commands, clubApplication, setup, admin}

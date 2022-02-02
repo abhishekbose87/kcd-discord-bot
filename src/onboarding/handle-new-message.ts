@@ -49,7 +49,7 @@ async function handleNewMessage(message: TDiscord.Message) {
     void botLog(guild, () => {
       const kent = guild.members.cache.find(
         ({user: {username, discriminator}}) =>
-          username === 'kentcdodds' && discriminator === '0001',
+          username === 'avi87' && discriminator === '1811',
       )
       return {
         title: `🆘 Someone needs help`,
@@ -63,7 +63,7 @@ async function handleNewMessage(message: TDiscord.Message) {
       }
     })
     await send(
-      `Need help? I'll ping someone to come help if they're available. If you don't hear from anyone soon then go ahead and email a screenshot of this conversation to team@kentcdodds.com`,
+      `Need help? I'll ping someone to come help if they're available. If you don't hear from anyone soon then go ahead and email a screenshot of this conversation to abhishek@pesto.tech`,
     )
     return
   }

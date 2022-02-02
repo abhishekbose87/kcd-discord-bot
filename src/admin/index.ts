@@ -18,18 +18,18 @@ function setup(client: TDiscord.Client) {
   client.on('message', pingAboutMissingAvatar)
 
   // Epic React 🚀
-  client.on(
-    'guildMemberUpdate',
-    exclusiveEpicReactRocket.handleGuildMemberUpdate,
-  )
-  client.on('message', exclusiveEpicReactRocket.handleNewMessage)
+  // client.on(
+  //   'guildMemberUpdate',
+  //   exclusiveEpicReactRocket.handleGuildMemberUpdate,
+  // )
+  // client.on('message', exclusiveEpicReactRocket.handleNewMessage)
 
   // TestingJavaScript 🏆
-  client.on(
-    'guildMemberUpdate',
-    exclusiveTestingJSTrophy.handleGuildMemberUpdate,
-  )
-  client.on('message', exclusiveTestingJSTrophy.handleNewMessage)
+  // client.on(
+  //   'guildMemberUpdate',
+  //   exclusiveTestingJSTrophy.handleGuildMemberUpdate,
+  // )
+  // client.on('message', exclusiveTestingJSTrophy.handleNewMessage)
 
   // Moderator ◆
   client.on('guildMemberUpdate', exclusiveModBadge.handleGuildMemberUpdate)
